@@ -1,3 +1,7 @@
+//          Copyright John R. Bandela 2016.
+// Distributed under the Boost Software License, Version 1.0.
+//    (See accompanying file LICENSE_1_0.txt or copy at
+//          http://www.boost.org/LICENSE_1_0.txt)
 #include <iostream>
 #include <boost/asio/steady_timer.hpp>
 #include "asio_await.hpp"
@@ -25,7 +29,8 @@ int main() {
 	auto f = asio_await::spawn_async(io, func);
 	auto t = boost::async(boost::launch::async, [&]() {io.run();});
 
-	std::cout << "func returned " << f.get() << "\n";
+	auto val = f.get();
+	std::cout << "func returned " << val << "\n";
 	work_ptr.reset();
 
 	t.get();
